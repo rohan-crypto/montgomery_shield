@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/brightdata/:path*",
+      "destination": "https://api.brightdata.com/:path*"
+    }
+  ]
+}
