@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex flex-col h-screen overflow-hidden bg-slate-900">
+      <div className="flex flex-col overflow-hidden bg-slate-900" style={{ height: '100dvh' }}>
         <Navbar
           sidebarOpen={sidebarOpen}
           onToggleSidebar={() => setSidebarOpen(prev => !prev)}
