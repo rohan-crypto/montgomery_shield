@@ -40,40 +40,44 @@ export default function LiveNewsFeed() {
   }
 
   useEffect(() => {
-      loadNews()
-      // Auto refresh every 30 minutes
-      const interval = setInterval(loadNews, 30 * 60 * 1000)
-      return () => clearInterval(interval)
-    }, [])
+    loadNews()
+    const interval = setInterval(loadNews, 30 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <div className="fixed top-[60px] right-4 z-[1000] w-80">
-
+    <div
+      className="fixed z-[10001]"
+      style={{ top: '60px', right: '16px' }}
+    >
       {/* Toggle Button */}
       <button
         onClick={() => setOpen(prev => !prev)}
         className="ml-auto flex items-center gap-2 bg-slate-800 border border-slate-600
-                   hover:border-blue-500/50 px-3 py-2 rounded-lg shadow-lg
-                   transition-all duration-300 group w-full justify-between"
+                   hover:border-blue-500/50 shadow-lg
+                   transition-all duration-300
+                   px-2 py-2 sm:px-3 rounded-lg"
+        aria-label="Toggle news feed"
       >
-        <div className="flex items-center gap-2">
-          <Newspaper size={15} className="text-blue-400" />
-          <span className="text-white text-xs font-medium">
-            Live Montgomery News
-          </span>
-          {!loading && news.length > 0 && (
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse">
-            </span>
-          )}
-        </div>
-        <span className="text-slate-400 text-xs">{open ? '▲' : '▼'}</span>
+        <Newspaper size={15} className="text-blue-400 flex-shrink-0" />
+        <span className="text-white text-xs font-medium hidden sm:block">
+          Live Montgomery News
+        </span>
+        {!loading && news.length > 0 && (
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
+        )}
+        <span className="text-slate-400 text-xs hidden sm:block">
+          {open ? '▲' : '▼'}
+        </span>
       </button>
 
       {/* Dropdown Panel */}
       {open && (
-        <div className="mt-1 bg-slate-800 border border-slate-700 rounded-xl
-                        shadow-2xl overflow-hidden">
-
+        <div
+          className="mt-1 bg-slate-800 border border-slate-700 rounded-xl
+                     shadow-2xl overflow-hidden"
+          style={{ width: 'min(320px, calc(100vw - 32px))' }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3
                           border-b border-slate-700">
@@ -109,8 +113,11 @@ export default function LiveNewsFeed() {
 
           {/* News Items */}
           <div
-            className="max-h-96 overflow-y-auto divide-y divide-slate-700/50"
-            style={{ scrollbarColor: '#3b82f6 #1e293b' }}
+            className="overflow-y-auto divide-y divide-slate-700/50"
+            style={{
+              maxHeight: 'min(384px, calc(100vh - 160px))',
+              scrollbarColor: '#3b82f6 #1e293b'
+            }}
           >
             {loading ? (
               <div className="flex items-center justify-center py-8 gap-2">
@@ -140,8 +147,7 @@ export default function LiveNewsFeed() {
                   <span
                     className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0
                                 ${DOT_MAP[item.color]}`}
-                  >
-                  </span>
+                  />
                   <div className="flex-1 min-w-0">
                     <p className="text-slate-200 text-xs leading-snug mb-1">
                       {item.title}
@@ -177,7 +183,6 @@ export default function LiveNewsFeed() {
               {' '}· AL.com Montgomery
             </p>
           </div>
-
         </div>
       )}
     </div>

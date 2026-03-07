@@ -28,42 +28,45 @@ export default function AIChatWidget() {
   }, [messages])
 
   async function handleSend(text) {
-        const userMessage = text || input.trim()
-        if (!userMessage || loading) return
+    const userMessage = text || input.trim()
+    if (!userMessage || loading) return
 
-        const newMessages = [...messages, { role: 'user', content: userMessage }]
-        setMessages(newMessages)
-        setInput('')
-        setLoading(true)
+    const newMessages = [...messages, { role: 'user', content: userMessage }]
+    setMessages(newMessages)
+    setInput('')
+    setLoading(true)
 
-        // Small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 500))
+    await new Promise(resolve => setTimeout(resolve, 500))
 
-        try {
-            const reply = await sendMessage(newMessages)
-            setMessages(prev => [...prev, { role: 'assistant', content: reply }])
-        } catch (err) {
-            console.error('Chat error:', err)
-            setMessages(prev => [...prev, {
-            role: 'assistant',
-            content: err.message.includes('429')
-                ? "I'm receiving too many requests right now. Please wait a moment and try again."
-                : "Sorry, I couldn't connect right now. Please try again in a moment."
-            }])
-        } finally {
-            setLoading(false)
-        }
+    try {
+      const reply = await sendMessage(newMessages)
+      setMessages(prev => [...prev, { role: 'assistant', content: reply }])
+    } catch (err) {
+      console.error('Chat error:', err)
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: err.message.includes('429')
+          ? "I'm receiving too many requests right now. Please wait a moment and try again."
+          : "Sorry, I couldn't connect right now. Please try again in a moment."
+      }])
+    } finally {
+      setLoading(false)
     }
+  }
 
   return (
-    <div className="fixed bottom-4 right-4 z-[999] flex flex-col items-end gap-2">
+    <div className="fixed bottom-4 right-6 md:right-8 z-[10000] flex flex-col items-end gap-2 isolate">
 
       {/* Chat Panel */}
       {open && (
-        <div className="w-80 bg-slate-800 border border-slate-700 rounded-xl
-                        shadow-2xl flex flex-col overflow-hidden"
-             style={{ height: '480px' }}>
-
+        <div
+          className="bg-slate-800 border border-slate-700 rounded-xl
+                     shadow-2xl flex flex-col overflow-hidden isolate"
+          style={{
+            width: 'min(320px, calc(100vw - 32px))',
+            height: 'min(480px, calc(100vh - 120px))',
+          }}
+        >
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3
                           bg-gradient-to-r from-blue-900/50 to-slate-800
@@ -89,8 +92,10 @@ export default function AIChatWidget() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
-               style={{ scrollbarColor: '#3b82f6 #1e293b' }}>
+          <div
+            className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
+            style={{ scrollbarColor: '#3b82f6 #1e293b' }}
+          >
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -168,14 +173,13 @@ export default function AIChatWidget() {
               <Send size={14} className="text-white" />
             </button>
           </div>
-
         </div>
       )}
 
       {/* Toggle Button */}
       <button
         onClick={() => setOpen(prev => !prev)}
-        className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center
+        className={`w-12 h-12 md:w-14 md:h-14 rounded-full shadow-lg flex items-center justify-center
                     transition-all duration-300 ${
                       open
                         ? 'bg-slate-700 hover:bg-slate-600'
@@ -184,10 +188,10 @@ export default function AIChatWidget() {
       >
         {open
           ? <X size={20} className="text-white" />
-          : <Bot size={20} className="text-white" />
+          : <Bot size={20} className="md:hidden text-white" />
         }
+        {!open && <Bot size={24} className="hidden md:block text-white" />}
       </button>
-
     </div>
   )
 }
