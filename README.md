@@ -3,7 +3,7 @@
 
 **Montgomery Shield** is a real-time public safety intelligence dashboard for the City of Montgomery, Alabama — built for the [GenAI Academy World Wide Vibes Hackathon 2026](https://academy.genai.works/hackathon).
 
-🔗 **Live Demo:** [montgomeryshield.vercel.app](montgomeryshield.vercel.app)
+🔗 **Live Demo:** [montgomeryshield.vercel.app](https://montgomeryshield.vercel.app)
 
 ---
 
