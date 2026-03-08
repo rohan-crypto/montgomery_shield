@@ -44,6 +44,7 @@ export default function App() {
               <Route path="/economic" element={<Economic />} />
               <Route path="/stations" element={<Stations />} />
             </Routes>
+            <div className="h-12" />
           </main>
         </div>
         <LiveNewsFeed />
