@@ -20,8 +20,8 @@ FIRE PROPERTY DATA:
 - April 2025 was catastrophic — $101M lost out of $102M at risk
 
 NEIGHBOURHOOD DATA:
-- Code violations highest in Districts 4, 3, 6 and 9
-- District 4 has the most violations by far
+- Code violations highest in Districts 7, 4, 1, 3, 2, 6, 5 and 9
+- District 7 has the most violations by far, followed by Districts 4 and 1
 - Top 311 requests: Nuisance, Police queries, Traffic Issues, Parking on Front Lawn
 
 ECONOMIC DATA:
